@@ -26,22 +26,27 @@ all: cw1a cw1b cw1c cw1d cw1e
 
 .PHONY: run-$(NAME1)
 run-$(NAME1): 
+	make $(NAME1)
 	./$(NAME1).x
 
 .PHONY: run-$(NAME2)
 run-$(NAME2): 
+	make $(NAME2)
 	./$(NAME2).x
 
 .PHONY: run-$(NAME3)
 run-$(NAME3): 
+	make $(NAME3)
 	./$(NAME3).x
 
 .PHONY: run-$(NAME4)
 run-$(NAME4): 
+	make $(NAME4)
 	./$(NAME4).x
 
 .PHONY: run-$(NAME5)
 run-$(NAME5): 
+	make $(NAME5)
 	./$(NAME5).x
 
 .PHONY: clean

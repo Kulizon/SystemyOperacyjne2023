@@ -26,7 +26,6 @@ int main() {
     {
         pid_t pid = fork();
 
-
         switch (pid)
         {
         case 0:
