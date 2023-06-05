@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int printOutProcessInformation() {
+    int uid = getuid();
+    int gid = getgid();
+    int pid = getpid();
+    int ppid = getppid();
+    int pgid = __getpgid(pid);
+    
+    printf("UID: %d | ", uid);
+    printf("GID: %d | ", gid);
+    printf("PID: %d | ", pid);
+    printf("PPID: %d | ", ppid);
+    printf("PGID: %d \n", pgid);
+    return 0;
+}
+
+int main (int argc, char *argv[]) {
+    char *fileName = argv[1];
+
+    printf("Proces macierzysty:\n");
+    printOutProcessInformation();
+
+    printf("\nProcesy potomne:\n");
+    for (int i = 0; i < 3; i++)
+    {
+        pid_t pid = fork();
+
+        switch (pid)
+        {
+        case 0:
+            if( execlp(fileName, fileName, (char *) NULL) == -1) {
+                perror("execlp error");
+                exit(-1);
+            }
+            break;
+        case -1:
+            perror("fork error");
+            exit(-1);
+            break;
+        default:
+            wait(NULL);
+            break;
+        }
+    }
+    return 0;
+}
